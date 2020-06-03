@@ -36,35 +36,37 @@ if __name__ == '__main__':
     plt.show()
 
     g=idct(F, norm='ortho', n=N)
+    sf.write('music_mono_original.wav', g, samplerate)
+
     plt.plot(g)
     plt.title('復元信号')
     plt.show()
 
     # カットポイントを動かしながらDCT逆変換
-    # corrcoefs = []
-    # abs = []
-    # for a in range(0, 600000, 10000):
-    #     gd=idct(F[:a],norm='ortho', n=N)
-    #     corrcoefs.append(np.corrcoef(f, gd)[0][1])
-    #     abs.append(np.sum(np.abs(f-gd)))
+    corrcoefs = []
+    abs = []
+    for a in range(0, 600000, 10000):
+        gd=idct(F[:a],norm='ortho', n=N)
+        corrcoefs.append(np.corrcoef(f, gd)[0][1])
+        abs.append(np.sum(np.abs(f-gd)))
     
-    # # 相関係数のプロット
-    # plt.plot(corrcoefs)
-    # xticks, strs = pylab.xticks()
-    # pylab.xticks(xticks, ["%d" % x for x in 10000 * xticks])
-    # plt.xlabel('CutPoint')
-    # plt.ylabel('corrcoefs')
-    # plt.title("相関係数")
-    # plt.show()
+    # 相関係数のプロット
+    plt.plot(corrcoefs)
+    xticks, strs = pylab.xticks()
+    pylab.xticks(xticks, ["%d" % x for x in 10000 * xticks])
+    plt.xlabel('CutPoint')
+    plt.ylabel('corrcoefs')
+    plt.title("相関係数")
+    plt.show()
 
-    # # 絶対誤差のプロット
-    # plt.plot(abs)
-    # xticks, strs = pylab.xticks()
-    # pylab.xticks(xticks, ["%d" % x for x in 10000 * xticks])
-    # plt.xlabel('CutPoint')
-    # plt.ylabel('abs')
-    # plt.title("絶対誤差")
-    # plt.show()
+    # 絶対誤差のプロット
+    plt.plot(abs)
+    xticks, strs = pylab.xticks()
+    pylab.xticks(xticks, ["%d" % x for x in 10000 * xticks])
+    plt.xlabel('CutPoint')
+    plt.ylabel('abs')
+    plt.title("絶対誤差")
+    plt.show()
 
     # 適切なカットポイントを指定
     a = 200000
